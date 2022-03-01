@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_computing/pages/home.dart';
+import 'package:mobile_computing/pages/quests.dart';
+import 'package:mobile_computing/pages/settings.dart';
+import 'package:mobile_computing/pages/workouts.dart';
+import 'package:mobile_computing/pages/profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,22 +27,12 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigation extends State<BottomNavigation> {
   int _page = 2;
-  static List<Widget> _pageOptions = <Widget> [
-    Text(
-      "Profile",
-    ),
-    Text(
-      "Quests",
-    ),
-    Text(
-      "Home",
-    ),
-    Text(
-      "Workouts",
-    ),
-    Text(
-      "Settings",
-    ),
+  static final List<Widget> _pageOptions = <Widget> [
+    ProfilePage(),
+    QuestPage(),
+    HomePage(),
+    WorkoutPage(),
+    SettingsPage()
   ];
 
   void _onButtonClicked(int index) {
@@ -87,11 +82,6 @@ class _BottomNavigation extends State<BottomNavigation> {
           onTap: _onButtonClicked,
         ),
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          '',
-        ),
-      ),
     );
   }
 }
