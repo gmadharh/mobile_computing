@@ -55,10 +55,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
               icon: Icon(Icons.add),
             ),
             leading: CircleAvatar(
-              backgroundColor: Colors.red,
+              backgroundColor: getColor(),
               child: Text(
                 xpAmount + "xp",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
             ),
             title: Center(child: Text(workout)),
@@ -66,5 +68,20 @@ class _WorkoutPageState extends State<WorkoutPage> {
         ],
       ),
     );
+  }
+
+  Color getColor() {
+    int num = _random.nextInt(3);
+    switch (num) {
+      case 0:
+        return Colors.blue;
+
+      case 1:
+        return Colors.red;
+      case 2:
+        return Colors.brown;
+      default:
+        return Colors.green;
+    }
   }
 }
