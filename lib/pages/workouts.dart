@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:mobile_computing/pages/add_workout.dart';
 
 class WorkoutPage extends StatefulWidget {
   @override
@@ -17,7 +18,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
         title: const Text("Workouts"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: ((context) => AddWorkoutPage())));
+        },
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -75,7 +79,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
     switch (num) {
       case 0:
         return Colors.blue;
-
       case 1:
         return Colors.red;
       case 2:
