@@ -4,7 +4,7 @@ List questData = [
     "quest": "Perform a workout.",
     "reward": "+10 XP",
     "isComplete": true,
-    "percent": 10.0,
+    "percent": 0.1,
   },
   {
     "type": "UNIQUE",

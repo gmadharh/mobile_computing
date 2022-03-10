@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
-import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:mobile_computing/widgets/questsDummyData.dart';
 
@@ -8,12 +7,9 @@ class QuestPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      centerTitle: true,
       title: const Text(
         "Quests",
-        style: TextStyle(color: Colors.black),
       ),
-      backgroundColor: Colors.grey,
     ),
     body: 
     SingleChildScrollView(
@@ -31,7 +27,6 @@ class QuestPage extends StatelessWidget{
         ],
       ),
     ),
-      backgroundColor: Color.fromARGB(255, 208, 224, 194),
   );
 }
 
@@ -43,19 +38,10 @@ class ExperienceBar extends StatelessWidget{
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return RoundedProgressBar(
-      childLeft: Text(
-        "$percent%",
-        style: const TextStyle(color: Colors.white),
-      ),
+    return LinearPercentIndicator(
       percent: percent,
-      style: RoundedProgressBarStyle(
-        colorBorder: Colors.grey,
-        colorProgress: Colors.black,
-        colorProgressDark: Colors.black,
-        backgroundProgress: Colors.grey
-      ),
-      
+      backgroundColor: Colors.grey,
+      progressColor: Colors.black,
     );
   }
 

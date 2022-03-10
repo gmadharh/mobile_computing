@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   settings_ui: ^2.0.2
   syncfusion_flutter_calendar: ^19.4.54
-  flutter_rounded_progress_bar: 0.2.0
   percent_indicator: ^4.0.0
 
 dev_dependencies:
@@ -60,14 +59,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  assets:
-    - assets/orc.jpg
+    
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/images/bow.PNG
     - lib/images/sabre.PNG
     - lib/images/club.PNG
+    - assets/orc.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

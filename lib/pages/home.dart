@@ -47,7 +47,7 @@ class ExerciseColumn extends StatelessWidget {
               const SizedBox(height: 8),
               Container(
                   height: 65.0,
-                  width: 375.0,
+                  width: (MediaQuery.of(context).size.width / 2) * 3,
                   color: Colors.transparent,
                   child: Container(
                       decoration: BoxDecoration(
@@ -112,7 +112,7 @@ class _LevelBarState extends State<LevelBar> {
   Widget build(BuildContext context) {
     return Container(
       child: LinearPercentIndicator(
-        width: 320.0,
+        width: (MediaQuery.of(context).size.width / 4) * 3,
         percent: 60 / 100,
         animation: true,
         animationDuration: 1500,
