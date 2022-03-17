@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/xpBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 List exercises = [
@@ -100,26 +101,26 @@ class ExerciseColumn extends StatelessWidget {
   }
 }
 
-class LevelBar extends StatefulWidget {
-  const LevelBar({Key? key}) : super(key: key);
+// class LevelBar extends StatefulWidget {
+//   const LevelBar({Key? key}) : super(key: key);
 
-  @override
-  _LevelBarState createState() => _LevelBarState();
-}
+//   @override
+//   _LevelBarState createState() => _LevelBarState();
+// }
 
-class _LevelBarState extends State<LevelBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: LinearPercentIndicator(
-        width: (MediaQuery.of(context).size.width / 4) * 3,
-        percent: 60 / 100,
-        animation: true,
-        animationDuration: 1500,
-        leading: const Text("Lvl 3", style: TextStyle(fontSize: 20)),
-        trailing: const Text("Lvl 4", style: TextStyle(fontSize: 20)),
-        progressColor: Colors.greenAccent,
-      ),
-    );
-  }
-}
+// class _LevelBarState extends State<LevelBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: LinearPercentIndicator(
+//         width: (MediaQuery.of(context).size.width / 4) * 3,
+//         percent: 60 / 100,
+//         animation: true,
+//         animationDuration: 1500,
+//         leading: const Text("Lvl 3", style: TextStyle(fontSize: 20)),
+//         trailing: const Text("Lvl 4", style: TextStyle(fontSize: 20)),
+//         progressColor: Colors.greenAccent,
+//       ),
+//     );
+//   }
+// }

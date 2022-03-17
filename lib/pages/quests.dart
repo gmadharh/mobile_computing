@@ -1,53 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_computing/widgets/xpBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:mobile_computing/widgets/questsDummyData.dart';
 
-class QuestPage extends StatelessWidget{
+class QuestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text(
-        "Quests",
-      ),
-    ),
-    body: 
-    SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: ExperienceBar(percent: questData[0]["percent"]),
+        appBar: AppBar(
+          title: const Text(
+            "Quests",
           ),
-          CalendarWidget(),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: QuestData(),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              LevelBar(),
+              CalendarWidget(),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: QuestData(),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }
 
-class ExperienceBar extends StatelessWidget{
-  final double percent;
-  const ExperienceBar({
-    required this.percent,
-    Key? key,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return LinearPercentIndicator(
-      percent: percent,
-      backgroundColor: Colors.grey,
-      progressColor: Colors.black,
-    );
-  }
+// class ExperienceBar extends StatelessWidget {
+//   final double percent;
+//   const ExperienceBar({
+//     required this.percent,
+//     Key? key,
+//   }) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return LinearPercentIndicator(
+//       percent: percent,
+//       backgroundColor: Colors.grey,
+//       progressColor: Colors.black,
+//     );
+//   }
+// }
 
-}
-
-class CalendarWidget extends StatelessWidget{
+class CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,20 +57,23 @@ class CalendarWidget extends StatelessWidget{
       ),
     );
   }
-
 }
 
-class QuestData extends StatelessWidget{
+class QuestData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for(int i = 0; i < questData.length; i++)
-        QuestCards(type: questData[i]["type"], quest: questData[i]["quest"], reward: questData[i]["reward"], isComplete: questData[i]["isComplete"],)
+        for (int i = 0; i < questData.length; i++)
+          QuestCards(
+            type: questData[i]["type"],
+            quest: questData[i]["quest"],
+            reward: questData[i]["reward"],
+            isComplete: questData[i]["isComplete"],
+          )
       ],
     );
   }
-
 }
 
 class QuestCards extends StatelessWidget {
@@ -90,7 +89,7 @@ class QuestCards extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Card(
       child: SingleChildScrollView(
         child: Padding(
@@ -103,12 +102,16 @@ class QuestCards extends StatelessWidget {
                   Text(quest),
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   const Text("REWARD: "),
                   Text(reward),
-                  isComplete ? const Icon(Icons.check_box) : const Icon(Icons.check_box_outline_blank),
+                  isComplete
+                      ? const Icon(Icons.check_box)
+                      : const Icon(Icons.check_box_outline_blank),
                 ],
               ),
             ],
