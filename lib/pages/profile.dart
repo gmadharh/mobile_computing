@@ -5,9 +5,13 @@
 // Milestone 2
 // CIS*4030
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_computing/models/temp_invent.dart';
 import 'package:mobile_computing/widgets/xpBar.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import '../user_json.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -34,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               LevelBar(),
+              Text('username'),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
