@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'user_json.dart';
 import 'package:mobile_computing/pages/home.dart';
 import 'package:mobile_computing/pages/quests.dart';
@@ -8,8 +9,9 @@ import 'package:mobile_computing/pages/settings.dart';
 import 'package:mobile_computing/pages/workouts.dart';
 import 'package:mobile_computing/pages/profile.dart';
 
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
