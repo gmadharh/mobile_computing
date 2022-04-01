@@ -1,0 +1,14 @@
+{
+    "username" : "Steve",
+    "level" : 5,
+    "basePercentage" : 100,
+    "xpAmount" : 0,
+    "statPoints" : 5,
+    "statDex" : 1,
+    "statStr" : 2,
+    "statInt" : 3,
+    "notificationToggle" : false,
+    "darkmodeToggle" : false,
+    "SFXToggle" : false,
+    "units" : ["km", "miles"]
+}

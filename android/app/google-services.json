@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719566321038",
+    "project_id": "fitnessscape-721a3",
+    "storage_bucket": "fitnessscape-721a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719566321038:android:9889b487b2d9fa767820df",
+        "android_client_info": {
+          "package_name": "com.example.mobile_computing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719566321038-5ees9a8obhhl0d23jih0rqq01bjd3epf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuUwfgqTTm7THapyTgY4cmOK7Gd7Kov2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719566321038-5ees9a8obhhl0d23jih0rqq01bjd3epf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
