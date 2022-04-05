@@ -6,6 +6,7 @@ class SettingsPage extends StatelessWidget{
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: const Text("Settings"),
+      automaticallyImplyLeading: false,
     ),
     body: settingPage(),
   );

@@ -16,6 +16,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: const Text("Workouts"),
+        automaticallyImplyLeading: false,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
