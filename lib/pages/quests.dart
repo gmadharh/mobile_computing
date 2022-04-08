@@ -11,6 +11,7 @@ class QuestPage extends StatelessWidget {
           title: const Text(
             "Quests",
           ),
+          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           child: Column(
