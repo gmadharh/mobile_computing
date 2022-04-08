@@ -37,7 +37,7 @@ class _BottomNavigation extends State<BottomNavigation> {
 
   static final List<Widget> _pageOptions = <Widget>[
     ProfilePage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
-    QuestPage(),
+    QuestPage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
     HomePage(),
     WorkoutPage(),
     SettingsPage()
