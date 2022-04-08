@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: const Text("Home"),
+          automaticallyImplyLeading: false,
         ),
         body: const ExerciseColumn(),
       );

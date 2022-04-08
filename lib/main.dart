@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_computing/authentication/signin.dart';
+import 'package:mobile_computing/authentication/signup.dart';
 import 'user_json.dart';
 import 'package:mobile_computing/pages/home.dart';
 import 'package:mobile_computing/pages/quests.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigation(),
+      home: SignInScreen(),
     );
   }
 }
@@ -34,8 +36,8 @@ class _BottomNavigation extends State<BottomNavigation> {
   int _page = 2;
 
   static final List<Widget> _pageOptions = <Widget>[
-    ProfilePage(),
-    QuestPage(),
+    ProfilePage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
+    QuestPage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
     HomePage(),
     WorkoutPage(),
     SettingsPage()
