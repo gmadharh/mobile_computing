@@ -29,7 +29,7 @@ class _AddWorkoutPageState extends State<AddWorkoutPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text(
-                              "This is the page for inputting your own workout! It will get added to the list of workouts.\n\n The following fields are required:\n- Name\n- Description\n- XP Amount \n\n Other fields are optional. To add multiple equipment, seperate them by a space.",
+                              "This is the page for inputting your own workout! It will get added to the list of workouts.\n\n The following fields are required:\n- Name\n- Description\n- XP Amount \n\n Other fields are optional. To add multiple equipment, seperate them by a space.\n ex. Bench ",
                               style: TextStyle(
                                 fontFamily: "Anybody",
                                 fontSize: 16,
@@ -145,6 +145,7 @@ class _AddWorkoutPageState extends State<AddWorkoutPage> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
                     }
+                    workoutAdded['muscles'] = value;
                     return null;
                   },
                 ),

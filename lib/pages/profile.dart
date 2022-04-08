@@ -16,7 +16,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../user_json.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final String uid;
+  const ProfilePage({Key? key, required this.uid}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -28,6 +29,17 @@ class _ProfilePageState extends State<ProfilePage> {
   var level = 3;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('userData').snapshots();
+
+  CollectionReference users = FirebaseFirestore.instance.collection('userData');
+
+  Future<void> updateStat(String stat, int statPoint) async {
+    return await users
+        //uid
+        .doc(widget.uid)
+        .update({stat + '_points': statPoint})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +106,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Stat Points: 0",
+                        "Stat Points: " +
+                            ((snapshot.data!).docs.elementAt(0)['stat_points'])
+                                .toString(),
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -107,12 +121,35 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ListTile(
-                                leading: const Text(
-                                  "DEX: 24",
+                                leading: Text(
+                                  "DEX: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['dex_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int dex = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] +
+                                        1;
+                                    updateStat('dex', dex);
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
@@ -124,12 +161,35 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   255, 196, 196, 196))),
                                 )),
                             ListTile(
-                                leading: const Text(
-                                  "STR: 9",
+                                leading: Text(
+                                  "STR: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['str_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int str = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] +
+                                        1;
+                                    updateStat('str', str);
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
@@ -141,12 +201,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   255, 196, 196, 196))),
                                 )),
                             ListTile(
-                                leading: const Text(
-                                  "INT: 7",
+                                leading: Text(
+                                  "INT: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['int_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    // if stat points are zero and the try to increment points
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int p = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] +
+                                        1;
+                                    updateStat('int', p);
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
