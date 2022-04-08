@@ -32,6 +32,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   CollectionReference users = FirebaseFirestore.instance.collection('userData');
 
+  Future<void> updateItems(int index, bool value) async {
+     return await users
+        //uid
+        .doc(widget.uid)
+        .update({"items.${index}": value})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   Future<void> updateStat(String stat, int statPoint) async {
     return await users
         //uid
@@ -144,6 +153,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .elementAt(0)['dex_points'] +
                                         1;
                                     updateStat('dex', dex);
+                                    if((snapshot.data)!.docs.elementAt(0)['dex_points'] >= 20){
+                                      updateItems(0, true);  
+                                    } else{
+                                      updateItems(0, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['dex_points'] >= 41){
+                                      updateItems(1, true);  
+                                    } else{
+                                      updateItems(1, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['dex_points'] >= 62){
+                                      updateItems(2, true);  
+                                    } else{
+                                      updateItems(2, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['dex_points'] >= 83){
+                                      updateItems(3, true);  
+                                    } else{
+                                      updateItems(3, false); 
+                                    }
 
                                     int s = (snapshot.data)!
                                             .docs
@@ -184,6 +213,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .elementAt(0)['str_points'] +
                                         1;
                                     updateStat('str', str);
+                                    if((snapshot.data)!.docs.elementAt(0)['str_points'] >= 20){
+                                      updateItems(4, true);  
+                                    } else{
+                                      updateItems(4, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['str_points'] >= 41){
+                                      updateItems(5, true);  
+                                    } else{
+                                      updateItems(5, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['str_points'] >= 62){
+                                      updateItems(6, true);  
+                                    } else{
+                                      updateItems(6, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['str_points'] >= 83){
+                                      updateItems(7, true);  
+                                    } else{
+                                      updateItems(7, false); 
+                                    }
 
                                     int s = (snapshot.data)!
                                             .docs
@@ -225,6 +274,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .elementAt(0)['int_points'] +
                                         1;
                                     updateStat('int', p);
+                                    if((snapshot.data)!.docs.elementAt(0)['int_points'] >= 20){
+                                      updateItems(8, true);  
+                                    } else{
+                                      updateItems(8, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['int_points'] >= 41){
+                                      updateItems(9, true);  
+                                    } else{
+                                      updateItems(9, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['int_points'] >= 62){
+                                      updateItems(10, true);  
+                                    } else{
+                                      updateItems(10, false); 
+                                    }
+                                    if((snapshot.data)!.docs.elementAt(0)['int_points'] >= 83){
+                                      updateItems(11, true);  
+                                    } else{
+                                      updateItems(11, false); 
+                                    }
 
                                     int s = (snapshot.data)!
                                             .docs
