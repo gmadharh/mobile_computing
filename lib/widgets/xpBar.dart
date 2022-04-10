@@ -21,7 +21,6 @@ class _LevelBarState extends State<LevelBar> {
     return StreamBuilder<QuerySnapshot>(
     stream: _usersStream,
 
-
     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
       if (snapshot.hasError) {
         return Text('Something went wrong');
@@ -41,6 +40,7 @@ class _LevelBarState extends State<LevelBar> {
           trailing: Text("Lvl " + ((snapshot.data)!.docs.elementAt(0)['level']+1).toString(), style: TextStyle(fontSize: 18)),
           progressColor: Colors.greenAccent,
         ),
+
       );
     }
     );

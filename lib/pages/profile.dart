@@ -34,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   CollectionReference users = FirebaseFirestore.instance.collection('userData');
 
   Future<void> updateItems(int index, bool value) async {
+
     return await users
         //uid
         .doc(widget.uid)
@@ -59,7 +60,6 @@ class _ProfilePageState extends State<ProfilePage> {
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
-
   attempEquip(int index, bool value) {
     return false;
   }
@@ -235,6 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .elementAt(0)['dex_points'] +
                                         1;
                                     updateStat('dex', dex);
+
                                     if ((snapshot.data)!
                                             .docs
                                             .elementAt(0)['dex_points'] >=
@@ -266,6 +267,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       updateItems(3, true);
                                     } else {
                                       updateItems(3, false);
+
                                     }
 
                                     int s = (snapshot.data)!
@@ -338,6 +340,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       updateItems(7, true);
                                     } else {
                                       updateItems(7, false);
+
                                     }
 
                                     int s = (snapshot.data)!
