@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_computing/authentication/signin.dart';
 import 'package:mobile_computing/authentication/signup.dart';
+import 'package:mobile_computing/providers/ActiveProvider.dart';
+import 'package:provider/provider.dart';
 import 'user_json.dart';
 import 'package:mobile_computing/pages/home.dart';
 import 'package:mobile_computing/pages/quests.dart';
@@ -22,7 +24,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInScreen(),
+      home: ChangeNotifierProvider(
+      create: (context) => ActiveProvider(), 
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignInScreen(),
+      ),
+    ),
     );
   }
 }
