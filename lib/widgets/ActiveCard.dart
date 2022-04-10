@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_computing/pages/single_workout.dart';
 import 'package:mobile_computing/models/temp_active.dart';
 import 'package:mobile_computing/providers/ActiveProvider.dart';
+import 'package:provider/provider.dart';
 
 Widget activeCard(Map exe, String front_img, String back_img, context) {
     return Card(
@@ -9,15 +10,17 @@ Widget activeCard(Map exe, String front_img, String back_img, context) {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleWorkout(exe, front_img, back_img))),
-            trailing: IconButton(
-              onPressed: () {
-                // CODE FOR COMPLETING WORKOUT TO ACTIVE WORKOUTS
-                active.removeWhere((e) => e['uuid']== exe['uuid']);
-
-              },
-              icon: Icon(Icons.check),
-            ),
+            onTap: () {},
+            trailing: Consumer<ActiveProvider>( builder: ((ctx, value, child) {
+            return IconButton(
+                onPressed: () {
+                  value.removeWorkout(exe);
+                  // Add XP to user reference by using 'exe['weight']'
+                },
+                icon: Icon(Icons.check),
+              );
+          })
+          ),
             leading: CircleAvatar(
               backgroundColor: getColor(exe['weight']),
               child: Text(

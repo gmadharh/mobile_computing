@@ -24,7 +24,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInScreen(),
+      home: ChangeNotifierProvider(
+      create: (context) => ActiveProvider(), 
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignInScreen(),
+      ),
+    ),
     );
   }
 }
@@ -41,10 +47,7 @@ class _BottomNavigation extends State<BottomNavigation> {
     ProfilePage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
     QuestPage(uid: 'RYG4MP8lFwXYPZU5cnIc'),
     HomePage(),
-    ChangeNotifierProvider(
-      create: (context) => ActiveProvider(), 
-      child: WorkoutPage()
-    ),
+    WorkoutPage(),
     SettingsPage()
   ];
 

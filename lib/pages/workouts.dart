@@ -5,11 +5,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mobile_computing/models/add_workouts.dart';
 import 'package:mobile_computing/pages/add_workout.dart';
+import 'package:mobile_computing/providers/ActiveProvider.dart';
 import 'package:mobile_computing/widgets/ExerciseCard.dart';
 import 'package:mobile_computing/widgets/ActiveCard.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_computing/models/temp_active.dart';
 import 'package:mobile_computing/models/add_workouts.dart';
+import 'package:provider/provider.dart';
 
 
 class WorkoutPage extends StatefulWidget {
@@ -40,8 +41,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
   final Stream<QuerySnapshot> users = FirebaseFirestore.instance.collection('userData').snapshots();
+
   
+
   void _activateListeners(){
+
     dbRef.child('exercises').onValue.listen((event) {
       final List tmp = (event.snapshot.value as List);
       setState(() {
@@ -78,7 +82,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
   
   @override
   Widget build(BuildContext context) {
-    
+
+    List active =  Provider.of<ActiveProvider>(context).myList;
+
+    print(active);
+
     if (loading){
       return CircularProgressIndicator();
     }
@@ -102,13 +110,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
         title: const Text("Workouts"),
         automaticallyImplyLeading: false,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: ((context) => AddWorkoutPage())));
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.of(context).push(
+      //         MaterialPageRoute(builder: ((context) => AddWorkoutPage())));
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
       body: Column(
         children: [
           const Padding(
@@ -126,9 +134,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     )
                 ),
 
-                if(active.isEmpty) const Text("No Workouts Currently Active :(")
+                if(active.isEmpty) const Padding(
+                  padding: EdgeInsets.only(top: 150),
+                  child: Text(
+                    "No Workouts Currently Active :(", 
+                    style: TextStyle(fontSize: 40),
+                    textAlign: TextAlign.center,
+                  ),
+                )
 
-                else Center(child: SizedBox(height: MediaQuery.of(context).size.height * 0.7,child: SingleChildScrollView(child: Column(children: getActive()))))
+                else Center(child: SizedBox(height: MediaQuery.of(context).size.height * 0.7,child: SingleChildScrollView(child: Column(children: getActive(active)))))
 
                 // else 
           // SizedBox(
@@ -171,7 +186,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
         ],
       ));
   }
- List<Widget> getActive(){
+ List<Widget> getActive(active){
 
   List<Widget> tmp = [];
 

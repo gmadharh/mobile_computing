@@ -13,7 +13,7 @@ class ActiveProvider with ChangeNotifier {
   }
 
   void removeWorkout(var exe){
-    active.removeWhere((e) => e['uuid']== exe['uuid']);
+    active.removeWhere((e) => e['name']== exe['name']);
     notifyListeners();
   }
 }

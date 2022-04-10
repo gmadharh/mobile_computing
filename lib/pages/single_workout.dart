@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_computing/models/temp_active.dart';
+import 'package:mobile_computing/providers/ActiveProvider.dart';
+import 'package:provider/provider.dart';
 
 class SingleWorkout extends StatefulWidget {
   
   final exe;
   final front_img;
   final back_img;
+  final ctx;
 
-  SingleWorkout(this.exe, this.front_img, this.back_img);
+  SingleWorkout(this.exe, this.front_img, this.back_img, this.ctx);
 
   @override
-  _SingleWorkoutState createState() => _SingleWorkoutState(exe, front_img, back_img);
+  _SingleWorkoutState createState() => _SingleWorkoutState(exe, front_img, back_img, ctx);
 
 }
 
@@ -20,20 +23,24 @@ class _SingleWorkoutState extends State<SingleWorkout> {
   final exe;
   final front_img;
   final back_img;
+  final ctx;
 
-  _SingleWorkoutState(this.exe, this.front_img, this.back_img);
+  _SingleWorkoutState(this.exe, this.front_img, this.back_img, this.ctx);
 
   Widget build (BuildContext context){
     return Scaffold(
       appBar: AppBar(
         title: Text(exe['name']),
         actions: [
-          IconButton(
-            onPressed: () {
-              active.add(exe);
-            }, 
-            icon: const Icon(Icons.add), 
-            splashColor: Colors.blue[800],
+          Consumer<ActiveProvider>( builder: ((ctx, value, child) {
+            return ElevatedButton(
+                onPressed: () {
+                  value.addWorkout(exe);
+                  Navigator.pop(context);
+                },
+                child: Text("Add"),
+              );
+          })
           )
         ],
       ),

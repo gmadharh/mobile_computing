@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_computing/pages/single_workout.dart';
 import 'package:mobile_computing/models/temp_active.dart';
+import 'package:mobile_computing/providers/ActiveProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 Widget exerciseCard(Map exe, String front_img, String back_img, context) {
@@ -9,19 +11,17 @@ Widget exerciseCard(Map exe, String front_img, String back_img, context) {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleWorkout(exe, front_img, back_img))),
-            trailing: IconButton(
-              onPressed: () {
-
-                var uuid = Uuid();
-
-                exe['uuid'] = uuid;
-
-                // CODE FOR ADDING WORKOUT TO ACTIVE WORKOUTS
-                active.add(exe);
-              },
-              icon: Icon(Icons.add),
-            ),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => SingleWorkout(exe, front_img, back_img, context))),
+            trailing: Consumer<ActiveProvider>( builder: ((ctx, value, child) {
+            return IconButton(
+                onPressed: () {
+                  value.addWorkout(exe);
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.check),
+              );
+          })
+          ),
             leading: CircleAvatar(
               backgroundColor: getColor(exe['weight']),
               child: Text(
