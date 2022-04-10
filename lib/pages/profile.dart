@@ -9,6 +9,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_computing/models/temp_invent.dart';
+import 'package:mobile_computing/pages/home.dart';
 import 'package:mobile_computing/widgets/xpBar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +17,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../user_json.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final String uid;
+  const ProfilePage({Key? key, required this.uid}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -29,11 +31,60 @@ class _ProfilePageState extends State<ProfilePage> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('userData').snapshots();
 
+  CollectionReference users = FirebaseFirestore.instance.collection('userData');
+
+  Future<void> updateItems(int index, bool value) async {
+    return await users
+        //uid
+        .doc(widget.uid)
+        .update({"items.${index}": value})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> updateEquip(String item) async {
+    return await users
+        //uid
+        .doc(widget.uid)
+        .update({"Equip": item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> updateStat(String stat, int statPoint) async {
+    return await users
+        //uid
+        .doc(widget.uid)
+        .update({stat + '_points': statPoint})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  attempEquip(int index, bool value) {
+    return false;
+  }
+
+  showAlertDialog(BuildContext context, String message) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text(message),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: _usersStream,
@@ -65,39 +116,94 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: MediaQuery.of(context).size.width - 20,
                       child: SingleChildScrollView(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(items.length, (index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                leading: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                        height: 40,
-                                        child: Image(
-                                          image: AssetImage(
-                                              "lib/images/${items[index]['img']}"),
-                                        )),
-                                    Text(items[index]['item'])
-                                  ],
-                                ),
-                                trailing: Text(
-                                  "Requirement: " + items[index]['req'],
-                                  style: const TextStyle(fontSize: 16),
-                                ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                          height: 40,
+                                          child: Image(
+                                            image: NetworkImage(
+                                                "${items[index]['img']}"),
+                                          )),
+                                      const Spacer(),
+                                      Container(
+                                        height: 30.0,
+                                        child: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              side: const BorderSide(
+                                                  color: Color.fromRGBO(
+                                                      0, 160, 227, 1))),
+                                          onPressed: () {
+                                            if (items[index]["DEXreq"] >
+                                                ((snapshot.data!)
+                                                    .docs
+                                                    .elementAt(
+                                                        0)['dex_points'])) {
+                                              showAlertDialog(
+                                                  context,
+                                                  "Requires " +
+                                                      "${items[index]['DEXreq']}" +
+                                                      " DEX points");
+                                            } else if (items[index]["STRreq"] >
+                                                ((snapshot.data!)
+                                                    .docs
+                                                    .elementAt(
+                                                        0)['str_points'])) {
+                                              showAlertDialog(
+                                                  context,
+                                                  "Requires " +
+                                                      "${items[index]['STRreq']}" +
+                                                      " STR points");
+                                            } else if (items[index]["INTreq"] >
+                                                ((snapshot.data!)
+                                                    .docs
+                                                    .elementAt(
+                                                        0)['int_points'])) {
+                                              showAlertDialog(
+                                                  context,
+                                                  "Requires " +
+                                                      "${items[index]['INTreq']}" +
+                                                      " INT points");
+                                            } else {
+                                              showAlertDialog(
+                                                  context, "Equip Successful");
+                                              updateEquip(items[index]["item"]);
+                                              HomePage();
+                                            }
+                                          },
+                                          padding: EdgeInsets.all(5.0),
+                                          color: Color.fromRGBO(0, 160, 227, 1),
+                                          textColor: Colors.white,
+                                          child: Text("Equip",
+                                              style: TextStyle(fontSize: 10)),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(items[index]['item']),
+                                  )
+                                ],
                               ),
                             );
                           }),
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Stat Points: 0",
+                        "Stat Points: " +
+                            ((snapshot.data!).docs.elementAt(0)['stat_points'])
+                                .toString(),
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -107,12 +213,67 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ListTile(
-                                leading: const Text(
-                                  "DEX: 24",
+                                leading: Text(
+                                  "DEX: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['dex_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int dex = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] +
+                                        1;
+                                    updateStat('dex', dex);
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] >=
+                                        20) {
+                                      updateItems(0, true);
+                                    } else {
+                                      updateItems(0, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] >=
+                                        41) {
+                                      updateItems(1, true);
+                                    } else {
+                                      updateItems(1, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] >=
+                                        62) {
+                                      updateItems(2, true);
+                                    } else {
+                                      updateItems(2, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['dex_points'] >=
+                                        83) {
+                                      updateItems(3, true);
+                                    } else {
+                                      updateItems(3, false);
+                                    }
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
@@ -124,12 +285,67 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   255, 196, 196, 196))),
                                 )),
                             ListTile(
-                                leading: const Text(
-                                  "STR: 9",
+                                leading: Text(
+                                  "STR: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['str_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int str = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] +
+                                        1;
+                                    updateStat('str', str);
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] >=
+                                        20) {
+                                      updateItems(4, true);
+                                    } else {
+                                      updateItems(4, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] >=
+                                        41) {
+                                      updateItems(5, true);
+                                    } else {
+                                      updateItems(5, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] >=
+                                        62) {
+                                      updateItems(6, true);
+                                    } else {
+                                      updateItems(6, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['str_points'] >=
+                                        83) {
+                                      updateItems(7, true);
+                                    } else {
+                                      updateItems(7, false);
+                                    }
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
@@ -141,12 +357,68 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   255, 196, 196, 196))),
                                 )),
                             ListTile(
-                                leading: const Text(
-                                  "INT: 7",
+                                leading: Text(
+                                  "INT: " +
+                                      ((snapshot.data!)
+                                              .docs
+                                              .elementAt(0)['int_points'])
+                                          .toString(),
                                   style: TextStyle(fontSize: 30),
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    // if stat points are zero and the try to increment points
+                                    if (((snapshot.data!)
+                                            .docs
+                                            .elementAt(0)['stat_points']) ==
+                                        0) {
+                                      return;
+                                    }
+
+                                    int p = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] +
+                                        1;
+                                    updateStat('int', p);
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] >=
+                                        20) {
+                                      updateItems(8, true);
+                                    } else {
+                                      updateItems(8, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] >=
+                                        41) {
+                                      updateItems(9, true);
+                                    } else {
+                                      updateItems(9, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] >=
+                                        62) {
+                                      updateItems(10, true);
+                                    } else {
+                                      updateItems(10, false);
+                                    }
+                                    if ((snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['int_points'] >=
+                                        83) {
+                                      updateItems(11, true);
+                                    } else {
+                                      updateItems(11, false);
+                                    }
+
+                                    int s = (snapshot.data)!
+                                            .docs
+                                            .elementAt(0)['stat_points'] -
+                                        1;
+                                    updateStat('stat', s);
+                                  },
                                   child: const Icon(
                                     Icons.add,
                                     color: Colors.black,
