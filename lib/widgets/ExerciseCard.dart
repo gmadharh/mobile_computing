@@ -18,7 +18,7 @@ Widget exerciseCard(Map exe, String front_img, String back_img, context) {
                   value.addWorkout(exe);
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.check),
+                icon: Icon(Icons.add),
               );
           })
           ),

@@ -92,14 +92,27 @@ class _ExerciseColumnState extends State<ExerciseColumn> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
+              Text(
+                "Welcome to FitnessScape",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 40),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(image_url),
               ),
               const SizedBox(height: 10),
               const LevelBar(),
-              const SizedBox(height: 10),
-              Expanded(
+              const SizedBox(height: 40),
+              Text(
+                "Challenge yourself everyday." ,
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+               Text(
+                "Lets get it, Kartik!" ,
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              /*Expanded(
                   child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: exercises.length,
@@ -158,15 +171,15 @@ class _ExerciseColumnState extends State<ExerciseColumn> {
                                     ),
                                   ),
                                 ])))
+                                
                   ]));
                 },
-              ))
+              ))*/
             ],
           );
         });
   }
 }
-
 
 
 

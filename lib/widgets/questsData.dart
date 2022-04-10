@@ -2,12 +2,12 @@ List questDataDex = [
   {
     "type": "UNIQUE",
     "quest": "Reach 21 DEX.",
-    "reward": "Item 1",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",
     "quest": "Reach 42 DEX.",
-    "reward": "Item 2",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",
@@ -24,12 +24,12 @@ List questDataStr = [
   {
     "type": "UNIQUE",
     "quest": "Reach 21 STR.",
-    "reward": "Item 5",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",
     "quest": "Reach 42 STR.",
-    "reward": "Item 6",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",
@@ -46,12 +46,12 @@ List questDataInt = [
   {
     "type": "UNIQUE",
     "quest": "Reach 21 INT.",
-    "reward": "Item 9",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",
     "quest": "Reach 42 INT.",
-    "reward": "Item 10",
+    "reward": "20 Exp",
   },
   {
     "type": "UNIQUE",

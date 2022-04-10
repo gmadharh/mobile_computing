@@ -3,8 +3,35 @@ import 'package:mobile_computing/pages/single_workout.dart';
 import 'package:mobile_computing/models/temp_active.dart';
 import 'package:mobile_computing/providers/ActiveProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 Widget activeCard(Map exe, String front_img, String back_img, context) {
+    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('userData').snapshots();
+    CollectionReference users = FirebaseFirestore.instance.collection('userData');
+    String uid = ("RYG4MP8lFwXYPZU5cnIc");
+
+    Future<void> updateUser(int xp, int lvl, int stat) {
+    return users
+      .doc(uid)
+      .update({"CurrentEXP": xp, "level": lvl, "stat_points": stat})
+      .then((value) => print("User Updated"))
+      .catchError((error) => print("Failed to update user: $error"));
+    }
+    
+    return StreamBuilder<QuerySnapshot>(
+    stream: _usersStream,
+
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.hasError) {
+        return Text('Something went wrong');
+      }
+
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Text("Loading");
+      }
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -16,6 +43,15 @@ Widget activeCard(Map exe, String front_img, String back_img, context) {
                 onPressed: () {
                   value.removeWorkout(exe);
                   // Add XP to user reference by using 'exe['weight']'
+                  int x = (snapshot.data)!.docs.elementAt(0)['CurrentEXP'] + exe['weight'];
+                  int l = (snapshot.data)!.docs.elementAt(0)['level'];
+                  int s = (snapshot.data)!.docs.elementAt(0)['stat_points'];
+                  if(x > 100){
+                    l++;
+                    x = x - 100;
+                    s = s + 3;
+                  }
+                  updateUser(x, l, s);
                 },
                 icon: Icon(Icons.check),
               );
@@ -34,9 +70,12 @@ Widget activeCard(Map exe, String front_img, String back_img, context) {
             title: Center(child: Text(exe['name'])),
           )
         ],
-      ),
+      ),);
+
+    } 
     );
   }
+
 
 Color getColor(weight){
 

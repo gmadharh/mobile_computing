@@ -14,6 +14,7 @@ import 'package:mobile_computing/widgets/xpBar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../user_json.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -32,6 +33,14 @@ class _ProfilePageState extends State<ProfilePage> {
       FirebaseFirestore.instance.collection('userData').snapshots();
 
   CollectionReference users = FirebaseFirestore.instance.collection('userData');
+
+  Future<void> updateUser(int xp, int lvl, int stat) {
+    return users
+      .doc(widget.uid)
+      .update({"CurrentEXP": xp, "level": lvl, "stat_points": stat})
+      .then((value) => print("User Updated"))
+      .catchError((error) => print("Failed to update user: $error"));
+    }
 
   Future<void> updateItems(int index, bool value) async {
 
@@ -240,7 +249,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['dex_points'] >=
                                         20) {
+                                      increment(snapshot);
                                       updateItems(0, true);
+                                      
                                     } else {
                                       updateItems(0, false);
                                     }
@@ -248,6 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['dex_points'] >=
                                         41) {
+                                      increment(snapshot);
                                       updateItems(1, true);
                                     } else {
                                       updateItems(1, false);
@@ -296,6 +308,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['str_points'] >=
                                         20) {
+                                      increment(snapshot);
                                       updateItems(4, true);
                                     } else {
                                       updateItems(4, false);
@@ -304,6 +317,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['str_points'] >=
                                         41) {
+                                      increment(snapshot);
                                       updateItems(5, true);
                                     } else {
                                       updateItems(5, false);
@@ -354,7 +368,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['int_points'] >=
                                         20) {
+                                      increment(snapshot);
                                       updateItems(8, true);
+                                      
                                     } else {
                                       updateItems(8, false);
                                     }
@@ -362,6 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .docs
                                             .elementAt(0)['int_points'] >=
                                         41) {
+                                      increment(snapshot);
                                       updateItems(9, true);
                                     } else {
                                       updateItems(9, false);
@@ -391,5 +408,16 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           }),
     );
+  }
+  void increment(snapshot){
+    int xp = (snapshot.data)!.docs.elementAt(0)['CurrentEXP'] + 20;
+    int level = (snapshot.data)!.docs.elementAt(0)['level'];
+    int stat = (snapshot.data)!.docs.elementAt(0)['stat_points'];
+    if(xp > 100){
+      level++;
+      xp = xp - 100;
+      stat = stat + 3;
+    }
+    updateUser(xp, level, stat);
   }
 }
