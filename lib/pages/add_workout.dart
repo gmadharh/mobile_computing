@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_computing/models/add_workouts.dart';
 import '../models/workout_model.dart';
+import 'package:mobile_computing/models/add_workouts.dart';
 
 class AddWorkoutPage extends StatefulWidget {
   const AddWorkoutPage({Key? key}) : super(key: key);
@@ -108,7 +110,7 @@ class _AddWorkoutPageState extends State<AddWorkoutPage> {
                     } else if (int.parse(value) > 15 || int.parse(value) < 4) {
                       return 'XP Amount must be between 4-15';
                     }
-                    workoutAdded['weight'] = value;
+                    workoutAdded['weight'] = int.parse(value);
                     return null;
                   },
                 ),
@@ -124,29 +126,21 @@ class _AddWorkoutPageState extends State<AddWorkoutPage> {
                 TextFormField(
                   // The validator receives the text that the user has entered.
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return null;
+
+                    workoutAdded['equipment'] = [];
+                    Map tmp = {};
+                    if (value == null) {
+                      tmp = {
+                        'id': -1,
+                        'name': 'empty'
+                        };
+                    }else{
+                      tmp = {
+                        'id' : 25,
+                        'name': value
+                      };
                     }
-                    workoutAdded['equipment'] = value;
-                  },
-                ),
-                const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Muscle Groups:",
-                        style: TextStyle(fontFamily: "Anybody", fontSize: 35),
-                      ),
-                    )),
-                TextFormField(
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    workoutAdded['muscles'] = value;
-                    return null;
+                    workoutAdded['equipment'].add(tmp);
                   },
                 ),
                 ElevatedButton(
@@ -158,6 +152,17 @@ class _AddWorkoutPageState extends State<AddWorkoutPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Added Workout')),
                       );
+                      workoutAdded['muscles'] = [];
+                      workoutAdded['muscles_secondary'] = [];
+                      Map tmp = {};
+                      tmp = {
+                        'id': -1,
+                        'name': 'empty'
+                        };
+                      
+                      workoutAdded['muscles'].add(tmp);
+                      workoutAdded['muscles_secondary'].add(tmp);
+                      added_workouts.add(workoutAdded);
                     }
                   },
                   child: const Text('Submit'),
