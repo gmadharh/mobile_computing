@@ -252,23 +252,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     } else {
                                       updateItems(1, false);
                                     }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['dex_points'] >=
-                                        62) {
-                                      updateItems(2, true);
-                                    } else {
-                                      updateItems(2, false);
-                                    }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['dex_points'] >=
-                                        83) {
-                                      updateItems(3, true);
-                                    } else {
-                                      updateItems(3, false);
-
-                                    }
 
                                     int s = (snapshot.data)!
                                             .docs
@@ -325,23 +308,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     } else {
                                       updateItems(5, false);
                                     }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['str_points'] >=
-                                        62) {
-                                      updateItems(6, true);
-                                    } else {
-                                      updateItems(6, false);
-                                    }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['str_points'] >=
-                                        83) {
-                                      updateItems(7, true);
-                                    } else {
-                                      updateItems(7, false);
-
-                                    }
+                                   
 
                                     int s = (snapshot.data)!
                                             .docs
@@ -398,22 +365,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                       updateItems(9, true);
                                     } else {
                                       updateItems(9, false);
-                                    }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['int_points'] >=
-                                        62) {
-                                      updateItems(10, true);
-                                    } else {
-                                      updateItems(10, false);
-                                    }
-                                    if ((snapshot.data)!
-                                            .docs
-                                            .elementAt(0)['int_points'] >=
-                                        83) {
-                                      updateItems(11, true);
-                                    } else {
-                                      updateItems(11, false);
                                     }
 
                                     int s = (snapshot.data)!

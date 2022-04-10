@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
 }
 
 class ExerciseColumn extends StatefulWidget {
-  const ExerciseColumn({Key? key}) : super(key: key);
+  
+  const ExerciseColumn({Key? key,}) : super(key: key);
 
   @override
   State<ExerciseColumn> createState() => _ExerciseColumnState();
@@ -37,6 +38,17 @@ class _ExerciseColumnState extends State<ExerciseColumn> {
       FirebaseFirestore.instance.collection('userData').snapshots();
 
   CollectionReference users = FirebaseFirestore.instance.collection('userData');
+  String uid = ("RYG4MP8lFwXYPZU5cnIc");
+  
+  Future<void> updateItems(int index, bool value) async {
+
+    return await users
+        //uid
+        .doc(uid)
+        .update({"items.${index}": value})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +65,22 @@ class _ExerciseColumnState extends State<ExerciseColumn> {
 
           if (level >= 10) {
             race = "Golem3";
+            updateItems(11, true);
           } else if (level >= 8) {
             race = "Golem2";
+            updateItems(7, true);
           } else if (level >= 6) {
             race = "Golem";
+            updateItems(3, true);
           } else if (level >= 4) {
             race = "Angel3";
+            updateItems(10, true);
           } else if (level >= 2) {
             race = "Angel2";
+            updateItems(6, true);
           } else if (level >= 0) {
             race = "Angel";
+            updateItems(2, true);
           }
 
           for (var i = 0; i < images.length; i++) {
