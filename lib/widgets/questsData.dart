@@ -11,13 +11,13 @@ List questDataDex = [
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 63 DEX.",
-    "reward": "Item 3",
+    "quest": "Reach Lvl 0",
+    "reward": "Angel #1",
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 84 DEX.",
-    "reward": "Item 4",
+    "quest": "Reach Lvl 6",
+    "reward": "Golem #1",
   },
 ];
 List questDataStr = [
@@ -33,13 +33,13 @@ List questDataStr = [
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 63 STR.",
-    "reward": "Item 7",
+    "quest": "Reach Lvl 2",
+    "reward": "Angel #2",
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 84 STR.",
-    "reward": "Item 8",
+    "quest": "Reach Lvl 8",
+    "reward": "Golem #2",
   },
 ];
 List questDataInt = [
@@ -55,12 +55,12 @@ List questDataInt = [
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 63 INT.",
-    "reward": "Item 11",
+    "quest": "Reach Lvl 4",
+    "reward": "Angel #3",
   },
   {
     "type": "UNIQUE",
-    "quest": "Reach 84 INT.",
-    "reward": "Item 12",
+    "quest": "Reach Lvl 10",
+    "reward": "Golem #3",
   },
 ];

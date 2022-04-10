@@ -40,7 +40,7 @@ class _LevelBarState extends State<LevelBar> {
           trailing: Text("Lvl " + ((snapshot.data)!.docs.elementAt(0)['level']+1).toString(), style: TextStyle(fontSize: 18)),
           progressColor: Colors.greenAccent,
         ),
-        
+
       );
     }
     );

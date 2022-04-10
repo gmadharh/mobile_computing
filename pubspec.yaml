@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
 
   firebase_core: ^1.13.1
-  # firebase_auth: ^3.3.11
   cloud_firestore: ^3.1.10
   uuid: ^3.0.6
 
