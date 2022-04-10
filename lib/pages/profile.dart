@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: StreamBuilder<QuerySnapshot>(
           stream: _usersStream,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return Text("Loading...");
+            if (!snapshot.hasData) return CircularProgressIndicator();
             return Center(
               child: SingleChildScrollView(
                 child: Column(

@@ -87,7 +87,7 @@ class _QuestPageState extends State<QuestPage> {
                   ),
                   SizedBox(height: 25,),
                   const Text(
-                    "STR Quest Remaining",
+                    "INT Quest Remaining",
                     style: TextStyle(
                         fontSize:20,
                     ),
@@ -114,7 +114,7 @@ class _QuestPageState extends State<QuestPage> {
                   ),
                   SizedBox(height: 25,),
                   const Text(
-                    "INT Quest Remaining",
+                    "STR Quest Remaining",
                     style: TextStyle(
                         fontSize:20,
                     ),
